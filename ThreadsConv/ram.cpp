@@ -5,8 +5,7 @@ int main(){
     int *arreglo, i;
     arreglo = new int[numeroElementos];
     for(i = 0; i < numeroElementos; i++)
-    arreglo[i] = 0;
-    for(i = 0; i < 100000000; i++){
-    arreglo[rand()%numeroElementos] = rand();
-    }
+        arreglo[i] = 0;
+    for(i = 0; i < 999999999; i++)
+        arreglo[rand() % numeroElementos] = rand();
 }

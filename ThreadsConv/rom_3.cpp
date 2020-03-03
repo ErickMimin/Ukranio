@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <cstring>
 using namespace std;
+// BUFSIZ Tamaño optimo para buffer
 char buffer[BUFSIZ];
 
 char random(char min, char max) {
