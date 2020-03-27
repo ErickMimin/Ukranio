@@ -2,6 +2,7 @@
 #include <string>
 #include <netinet/in.h>
 #include "DatagramPacket.h"
+#include <errno.h>
 
 #ifndef DATAGRAM_SOCKET_H_
 #define DATAGRAM_SOCKET_H_
@@ -15,11 +16,13 @@ class DatagramSocket {
 		void unbind();
 		int send(DatagramPacket &p);
 		int receive(DatagramPacket &p);
+		int receiveTimeout(DatagramPacket & p, time_t seconds, suseconds_t microseconds);
 
 	private:
 		struct sockaddr_in localAddress;
 		struct sockaddr_in remoteAddress;
 		int s;
+		struct timeval timeout;
 };
 
 #endif
