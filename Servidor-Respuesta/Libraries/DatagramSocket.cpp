@@ -43,15 +43,15 @@ int DatagramSocket::receiveTimeout(DatagramPacket & p, time_t seconds, suseconds
 	if(n < 0){
 		if(errno== EWOULDBLOCK)
 			fprintf(stderr, "Tiempo de recepción transcurrido\n");
-		else{
-			p.setPort(ntohs(remoteAddress.sin_port));
-			p.setAddress(string(inet_ntoa(remoteAddress.sin_addr)));
-			p.setLength(n);
-		}
+		else
+			fprintf(stderr, "Error en recvfrom\n");
+		
 	}
+	p.setPort(ntohs(remoteAddress.sin_port));
+	p.setAddress(string(inet_ntoa(remoteAddress.sin_addr)));
+	p.setLength(n);
 	
 	return n;
-
 }
 
 int DatagramSocket::receive(DatagramPacket &p){

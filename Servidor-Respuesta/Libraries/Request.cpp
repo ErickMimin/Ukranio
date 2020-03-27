@@ -21,18 +21,22 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
 
     DatagramPacket pq((char*)msg, sizeof(Menssage), addr, iport);
     DatagramSocket sock;
-    //sock.send(pq);
+    sock.send(pq);
 
     Menssage *msg2 = new Menssage();
     DatagramPacket pqresp((char*)msg2, sizeof(Menssage));
-    int i;
-    for(i=0; i<7;i++){
-        sock.send(pq);
-        sock.receiveTimeout(pqresp, 2, 500000);
-        ++i;
+    int i=0;
+    for(i;i<7;){
+        int n=sock.receiveTimeout(pqresp, 2, 500000);
+        if(n<0){
+            i++;
+        }else{
+            break;
+        }
     }
 
     if(i==7){
+        len_reply=0;
         printf(" El servidor no está disponible\n");
         exit(-1);
     }
