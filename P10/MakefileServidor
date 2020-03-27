@@ -1,0 +1,17 @@
+run: Servidor
+	./Servidor 3000
+
+PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
+	g++ -c bibliotecas/PaqueteDatagrama.cpp
+
+SocketDatagrama.o: bibliotecas/SocketDatagrama.cpp
+	g++ -c bibliotecas/SocketDatagrama.cpp
+
+Respuesta.o: bibliotecas/Respuesta.cpp
+	g++ -c bibliotecas/Respuesta.cpp
+
+Servidor: PaqueteDatagrama.o SocketDatagrama.o Respuesta.o
+	g++ PaqueteDatagrama.o SocketDatagrama.o Respuesta.o Servidor.cpp -o Servidor -I./bibliotecas
+
+clean:
+	rm -rf *.o Servidor

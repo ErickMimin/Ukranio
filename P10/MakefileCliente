@@ -1,0 +1,17 @@
+run: cliente
+	./cliente 192.168.1.167 3000 2 1 500
+
+PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
+	g++ -c bibliotecas/PaqueteDatagrama.cpp
+
+SocketDatagrama.o: bibliotecas/SocketDatagrama.cpp
+	g++ -c bibliotecas/SocketDatagrama.cpp
+
+Solicitud.o: bibliotecas/Solicitud.cpp
+	g++ -c bibliotecas/Solicitud.cpp
+
+cliente: PaqueteDatagrama.o SocketDatagrama.o Solicitud.o cliente.cpp
+	g++ PaqueteDatagrama.o SocketDatagrama.o Solicitud.o cliente.cpp -o cliente -I./bibliotecas
+
+clean:
+	rm -rf *.o cliente
