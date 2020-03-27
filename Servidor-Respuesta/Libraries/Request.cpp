@@ -25,8 +25,8 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
 
     Menssage *msg2 = new Menssage();
     DatagramPacket pqresp((char*)msg2, sizeof(Menssage));
-    int i=0;
-    while(i<7){
+    int i;
+    for(i=0; i<7;i++){
         sock.send(pq);
         sock.receiveTimeout(pqresp, 2, 500000);
         ++i;
