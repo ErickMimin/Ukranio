@@ -25,7 +25,18 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
 
     Menssage *msg2 = new Menssage();
     DatagramPacket pqresp((char*)msg2, sizeof(Menssage));
-    sock.receive(pqresp);
+    int i=0
+    while(i<7){
+        sock.receiveTimeout(pqresp, 2, 500000);
+        sock.send();
+        ++i;
+    }
+
+    if(i>7){
+        printf(" El servidor no está disponible\n");
+        exit(-1);
+    }
+    //sock.receive(pqresp);
     len_reply = msg2->length;
     return msg2->arguments;
 }
