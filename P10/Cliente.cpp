@@ -1,16 +1,13 @@
 #include "Solicitud.h"
 #include <iostream>
 #include <string>
+#include <new>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-	char* ip;
-	int puerto;
+int main(int argc, char* argv[]){
 	int num[2];
-	if(argc != 2 ){
-		printf("Te han hecho falta datos en la línea de comandos\n");
-	}
+	
 	/*Se guardan los datos ingresados en la línea de comandos en los números a enviar*/
 	num[0]= atoi(argv[3]);
 	num[1]= atoi(argv[4]);
