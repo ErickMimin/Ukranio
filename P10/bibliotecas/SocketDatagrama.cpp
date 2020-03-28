@@ -1,4 +1,11 @@
 #include "SocketDatagrama.h"
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 SocketDatagrama::SocketDatagrama(): SocketDatagrama(0) {}
 

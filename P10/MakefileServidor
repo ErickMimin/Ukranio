@@ -1,14 +1,14 @@
 run: Servidor
-	./Servidor 3000
+	./Servidor 7200
 
 PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
-	g++ -c bibliotecas/PaqueteDatagrama.cpp
+	g++ -c bibliotecas/PaqueteDatagrama.cpp -Wall
 
 SocketDatagrama.o: bibliotecas/SocketDatagrama.cpp
-	g++ -c bibliotecas/SocketDatagrama.cpp
+	g++ -c bibliotecas/SocketDatagrama.cpp -Wall
 
 Respuesta.o: bibliotecas/Respuesta.cpp
-	g++ -c bibliotecas/Respuesta.cpp
+	g++ -c bibliotecas/Respuesta.cpp -Wall
 
 Servidor: PaqueteDatagrama.o SocketDatagrama.o Respuesta.o
 	g++ PaqueteDatagrama.o SocketDatagrama.o Respuesta.o Servidor.cpp -o Servidor -I./bibliotecas

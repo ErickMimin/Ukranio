@@ -1,13 +1,13 @@
 run: cliente
-	./cliente 192.168.1.155 3000 2 1
+	./cliente 192.168.1.167 7200 2 1
 PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
-	g++ -c bibliotecas/PaqueteDatagrama.cpp
+	g++ -c bibliotecas/PaqueteDatagrama.cpp -Wall
 
 SocketDatagrama.o: bibliotecas/SocketDatagrama.cpp
-	g++ -c bibliotecas/SocketDatagrama.cpp
+	g++ -c bibliotecas/SocketDatagrama.cpp -Wall
 
 Solicitud.o: bibliotecas/Solicitud.cpp
-	g++ -c bibliotecas/Solicitud.cpp
+	g++ -c bibliotecas/Solicitud.cpp -Wall
 
 cliente: PaqueteDatagrama.o SocketDatagrama.o Solicitud.o Cliente.cpp
 	g++ PaqueteDatagrama.o SocketDatagrama.o Solicitud.o Cliente.cpp -o cliente -I./bibliotecas
