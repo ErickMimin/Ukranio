@@ -1,6 +1,5 @@
 #ifndef PAQUETE_DATAGRAMA_H_
 #define PAQUETE_DATAGRAMA_H_
-#include <new>
 #include <cstring>
 #include <stdio.h>
 #include <cstring>

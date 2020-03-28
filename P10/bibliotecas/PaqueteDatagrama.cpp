@@ -1,4 +1,6 @@
 #include "PaqueteDatagrama.h"
+#include<new>
+#include<string>
 
 //Constructor que crea un paquete de envio tipo datagrama.
 PaqueteDatagrama::PaqueteDatagrama(char* const data, size_t tam)	{	
