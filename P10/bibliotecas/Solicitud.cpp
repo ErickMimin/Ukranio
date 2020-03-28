@@ -4,6 +4,7 @@
 #include <chrono>
 #include <random>
 
+
 std::mt19937_64
 	seed(std::chrono::steady_clock::now().time_since_epoch().count());
 int random(int min, int max) { // [min, max]
