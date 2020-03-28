@@ -12,8 +12,8 @@ int main(int argc, char* argv[]) {
 		printf("Te han hecho falta datos en la línea de comandos\n");
 	}
 	/*Se guardan los datos ingresados en la línea de comandos en los números a enviar*/
-	num[0]= argv[3];
-	num[1]= argv[4];
+	num[0]= itoa(argv[3]);
+	num[1]= itoa(argv[4]);
 
 	Solicitud r;
 	size_t len_reply;
