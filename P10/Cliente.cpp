@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 
 	Solicitud r;
 	size_t len_reply;
-	int *suma = (int*)r.doOperation(argv[1],(uint16_t) argv[2], Mensaje::allowedOperations::sum, (char*)num, sizeof(num), len_reply);
+	int *suma = (int*)r.doOperation(argv[1],(uint16_t) atoi(argv[2]), Mensaje::allowedOperations::sum, (char*)num, sizeof(num), len_reply);
 	
 	cout << "Respuesta desde el servidor con longitud " << len_reply << ": " << *suma << "\n";
 	
