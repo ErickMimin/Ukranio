@@ -1,5 +1,5 @@
 run: cliente
-
+	./cliente 192.168.1.155 300 2 1
 PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
 	g++ -c bibliotecas/PaqueteDatagrama.cpp
 
