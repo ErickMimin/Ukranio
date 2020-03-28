@@ -1,5 +1,5 @@
 run: Servidor
-	./Servidor 3000
+	./Servidor 7200
 
 PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
 	g++ -c bibliotecas/PaqueteDatagrama.cpp

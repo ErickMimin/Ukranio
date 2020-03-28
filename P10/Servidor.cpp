@@ -5,10 +5,8 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	uint16_t puerto;
-	cout << "Puerto en el que se va a escuchar: ";
-	cin >> puerto;
-	Respuesta r(puerto);
+	
+	Respuesta r(uint16_t atoi(arg[2]));
 	cout << "Servidor iniciado...\n";
 	while(1){
 		Mensaje *men = r.getRequest();
