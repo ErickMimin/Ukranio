@@ -1,6 +1,5 @@
 run: cliente
 	./cliente 192.168.1.167 7200 2 1
->>>>>>> b925eab257a07b14fd66bb75358e8cd932c38898
 PaqueteDatagrama.o: bibliotecas/PaqueteDatagrama.cpp
 	g++ -c bibliotecas/PaqueteDatagrama.cpp -Wall
 
