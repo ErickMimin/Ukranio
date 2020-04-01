@@ -1,5 +1,5 @@
 run: client
-	./client 127.0.0.1 3000 500 1
+	./client 127.0.0.1 3000 6000
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp
@@ -14,4 +14,4 @@ client: DatagramPacket.o DatagramSocket.o Request.o client.cpp
 	g++ DatagramPacket.o DatagramSocket.o Request.o client.cpp -o client -I./Libraries
 
 clean:
-	rm -rf *.o client
+	rm -rf *.o client server
