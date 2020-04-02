@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <random>
+#include <chrono>
 #include "Request.h"
 
 using namespace std;
@@ -7,19 +9,35 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	string ip;
 	uint16_t puerto;
-	int nums[2];
-
-    /* Guardamos numeros en el arreglo */
-    nums[0] = atoi(argv[3]);
-    nums[1] = atoi(argv[4]);
-    for(int i=0; i<atoi(argv[5]);i++){
-
-
+	size_t len_response;
 	Request r;
-	size_t len_reply;
-	int *suma = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::sum, (char*)nums, sizeof(nums), len_reply);
+	int n= atoi(argv[3]);
+	int *balance, *currentBalance, deposit;
+
+	currentBalance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::verification, NULL, 0, len_response);
+	cout << "Su saldo inicial es" << "(longitud = " << len_response << "): " << *currentBalance << endl;
+
+	while(n--){
+		try{
+			//enviar al servidor el ID
+			
+			deposit = random(1, 9);
+			*currentBalance += deposit;
+			balance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::transfer, (char*)&deposit, sizeof(deposit), len_response);
+			cout << "Su saldo actual es" << "(longitud = " << len_response << "): " << *balance << endl;
+
+			if(*currentBalance != *balance){
+				throw "Saldo inconsistente";
+			}
+		}catch(const char *msg) {
+			cerr << msg << endl;
+			return 1;
+    	}
+		
+	};
 	
-	//cout << "El resultado de la suma es " << "(longitud = " << len_reply << "): " << *suma << endl;;
-	}
+	balance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::verification, NULL, 0, len_response);
+	cout << "Su saldo final es" << "(longitud = " << len_response << "): " << *balance << endl;
+
 	return 0;
 }

@@ -4,6 +4,8 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
+int random(int min, int max);
+
 class Request {
     public:
         Request();

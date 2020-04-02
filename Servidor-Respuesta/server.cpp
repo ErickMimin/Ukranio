@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <map>
 #include "Response.h"
 
 using namespace std;
@@ -12,21 +13,31 @@ int main(int argc, char* argv[]){
     }
 
     Response r((uint16_t) atoi(argv[1]));
-    //cout << "Servidor iniciado...\n";
+    map<string, int> nbd;
+
+    cout << "Servidor iniciado..." << endl;
+
     while(true){
         Menssage *msg = r.getRequest();
         int* nums = (int*)msg->arguments;
-        /*cout << "Solicitud enviada desde " << r.address << ":" << r.port << endl;
+
+        cout << "Solicitud enviada desde " << r.address << ":" << r.port << endl;
         cout << " request ID = " << msg->requestId << endl;
         cout << " operation ID = " << msg->operationId << endl;
-        cout << " sizeof(args) = " << msg->length << endl;*/
+        cout << " sizeof(args) = " << msg->length << endl;
 
-        if (msg->operationId == Menssage::allowedOperations::sum){
-           // cout << " Numeros a sumar: " << nums[0] << " y " << nums[1] << "\n";
+        if(msg->operationId == Menssage::allowedOperations::sum){
             int suma = nums[0] + nums[1];
             r.sendResponse((char*)&suma, sizeof(suma));
+        }else if(msg->operationId == Menssage::allowedOperations::transfer){
+            if(nbd.find(r.address) != nbd.end())
+				nbd.insert(pair<string, int>(r.address, 0));
+			nbd[r.address] += *nums;				
+			r.sendResponse((char*)&nbd[r.address], sizeof(int));
+        }else if(msg->operationId == Menssage::allowedOperations::verification){
+			r.sendResponse((char*)&nbd[r.address], sizeof(int));
         }
-       // cout << "\n";
     }
+    cout << "Servivor apagandose..." << endl;
     return 0;
 }

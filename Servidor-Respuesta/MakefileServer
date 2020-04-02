@@ -14,4 +14,4 @@ server: DatagramPacket.o DatagramSocket.o Response.o
 	g++ DatagramPacket.o DatagramSocket.o Response.o server.cpp -o server -I./Libraries
 
 clean:
-	rm -rf *.o server
+	rm -rf *.o server client
