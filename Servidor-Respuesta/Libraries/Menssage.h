@@ -1,7 +1,7 @@
 #ifndef MENSSAGE_H_
 #define MENSSAGE_H_
 //Definicion de identificadores para operaciones permitidas
-#define TAM_MAX_DATA 40000
+#define TAM_MAX_DATA 4000
 
 class Menssage {
 	public:

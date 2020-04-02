@@ -1,5 +1,5 @@
 run: client
-	./client 127.0.0.1 3000 6000
+	./client 127.0.0.1 3000 60
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp
