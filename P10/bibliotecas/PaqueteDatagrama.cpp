@@ -1,9 +1,14 @@
 #include "PaqueteDatagrama.h"
+<<<<<<< HEAD
+#include<new>
+#include<string>
+=======
 #include <new>
 #include <cstring>
 #include <stdio.h>
 #include <cstring>
 #include <arpa/inet.h>
+>>>>>>> 82608b108d1479837cf5a10a86eddee111f13a67
 
 //Constructor que crea un paquete de envio tipo datagrama.
 PaqueteDatagrama::PaqueteDatagrama(char* const data, size_t tam)	{	

@@ -3,6 +3,8 @@
 #include <string.h>
 #include <chrono>
 #include <random>
+#include <new>
+#include <string>
 
 
 std::mt19937_64

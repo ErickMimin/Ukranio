@@ -1,6 +1,6 @@
 #include "Solicitud.h"
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <new>
 
 using namespace std;
