@@ -14,5 +14,6 @@ class Response{
     private:
         DatagramSocket *localSocket;
 		Menssage::allowedOperations operation;
+        int cont = 0;
 };
 #endif

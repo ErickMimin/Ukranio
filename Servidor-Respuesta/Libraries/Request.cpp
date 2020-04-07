@@ -14,7 +14,7 @@ int random(int min, int max){
 char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::allowedOperations operation, char *arguments, size_t len, size_t &len_reply){
     Menssage *msg = new Menssage();
     msg->messageType = Menssage::kindMessages::request;
-    msg->requestId = random(1, 1 << 30);
+    msg->requestId = cont++;
     msg->operationId = operation;
     memcpy(msg->arguments, arguments, len);
     msg->length = len;

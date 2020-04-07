@@ -31,12 +31,14 @@ int main(int argc, char* argv[]){
             r.sendResponse((char*)&suma, sizeof(suma));
         }else if(msg->operationId == Menssage::allowedOperations::transfer){
             if(nbd.find(r.address) != nbd.end())
-				nbd.insert(pair<string, int>(r.address, 0));
-			nbd[r.address] += *nums;				
-			r.sendResponse((char*)&nbd[r.address], sizeof(int));
+                nbd.insert(pair<string, int>(r.address, 0));
+            nbd[r.address] += *nums;				
+            r.sendResponse((char*)&nbd[r.address], sizeof(int));
         }else if(msg->operationId == Menssage::allowedOperations::verification){
-			r.sendResponse((char*)&nbd[r.address], sizeof(int));
+            r.sendResponse((char*)&nbd[r.address], sizeof(int));
         }
+            
+        
     }
     cout << "Servivor apagandose..." << endl;
     return 0;

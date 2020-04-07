@@ -12,8 +12,12 @@ Menssage* Response::getRequest() {
 
 	address = pq.getAddress();
 	port = pq.getPort();
-	operation = msg->operationId;
-	requestId = msg->requestId;
+	
+	if(msg->requestId == (cont++)){
+		operation = msg->operationId;
+		requestId = msg->requestId;
+	}else
+		operation = Menssage::allowedOperations::verification;
 
 	return msg;
 }

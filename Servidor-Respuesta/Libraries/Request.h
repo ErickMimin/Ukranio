@@ -10,6 +10,8 @@ class Request {
     public:
         Request();
         char* doOperation(const std::string addr, uint16_t iport, Menssage::allowedOperations operation, char *arguments, size_t len, size_t &len_reply);
+    private:
+        int cont = 0;
 };
 
 #endif
