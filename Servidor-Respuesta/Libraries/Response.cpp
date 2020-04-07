@@ -1,5 +1,6 @@
 #include "Response.h"
 #include <string.h>
+#include <iostream>
 
 Response::Response(int iport){
 	localSocket = new DatagramSocket(iport);
@@ -10,15 +11,15 @@ Menssage* Response::getRequest() {
 	DatagramPacket pq((char*)msg, sizeof(Menssage));
 	localSocket->receive(pq);
 
-	address = pq.getAddress();
-	port = pq.getPort();
-	
-	if(msg->requestId == (cont++)){
-		operation = msg->operationId;
+	if(msg->requestId == cont){
+		cont++;
 		requestId = msg->requestId;
 	}else
-		operation = Menssage::allowedOperations::verification;
+		msg->operationId = Menssage::allowedOperations::verification;
 
+	address = pq.getAddress();
+	port = pq.getPort();
+	operation = msg->operationId;
 	return msg;
 }
 
