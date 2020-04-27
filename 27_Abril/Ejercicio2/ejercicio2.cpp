@@ -66,10 +66,13 @@ int main(int argc, char *argv[]){
 	}
 
 	//Aleatoriza el vector de registros e imprime el resultado
+	destino = open("registro",O_WRONLY|O_TRUNC|O_CREAT,0666);
 	random_shuffle(registros_vector.begin(), registros_vector.end());
 	for (std::vector<struct registro>::iterator it=registros_vector.begin(); it!=registros_vector.end(); ++it){
 		reg1 = *it;
-		write(1, &reg1, sizeof(reg1));
-		printf("\n");
+		write(destino, &reg1, sizeof(reg1));
 	}
+    close(destino);
+    return 0;
+
 }
