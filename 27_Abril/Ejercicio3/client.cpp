@@ -2,42 +2,52 @@
 #include <string>
 #include <random>
 #include <chrono>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "Request.h"
+
 
 using namespace std;
 
+char BUFFER[34];
+
+void copyBuffer(char* des, int ori){
+	int bytesRead;
+	if((bytesRead = read(ori, BUFFER, sizeof(BUFFER))) < 0){
+		cerr << "ERROR: Read register" << endl;
+		exit(-1);
+	}
+	memcpy(des, BUFFER, bytesRead);
+}
+
+
 int main(int argc, char* argv[]) {
-	string ip;
-	uint16_t puerto;
+	string ip = "127.0.0.1";
+	uint16_t puerto = 3000;
 	size_t len_response;
 	Request r;
-	int n= atoi(argv[3]);
-	int *balance, *currentBalance, deposit;
+	Registro regis;
+	int origin, *result;
 
-	currentBalance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::verification, NULL, 0, len_response);
-	cout << "Su saldo inicial es" << "(longitud = " << len_response << "): " << *currentBalance << endl;
+	if((origin = open("registro", O_RDONLY)) < 0){
+		cerr << "ERROR: Open register file" << endl;
+		exit(-1);
+	}
 
-	while(n--){
-		try{
-			//enviar al servidor el ID
-			
-			deposit = random(1, 9);
-			*currentBalance += deposit;
-			balance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::transfer, (char*)&deposit, sizeof(deposit), len_response);
-			cout << "Su saldo actual es" << "(longitud = " << len_response << "): " << *balance << endl;
+	copyBuffer((char*)&regis, origin);
 
-			if(*currentBalance != *balance){
-				throw "Saldo inconsistente";
-			}
-		}catch(const char *msg) {
-			cerr << msg << endl;
-			return 1;
-    	}
-		
-	};
-	
-	balance = (int*)r.doOperation(argv[1], (uint16_t) atoi(argv[2]), Menssage::allowedOperations::verification, NULL, 0, len_response);
-	cout << "Su saldo final es" << "(longitud = " << len_response << "): " << *balance << endl;
+	cout << regis.celular << endl;
+	cout << regis.CURP << endl;
+	cout << regis.partido << endl;
+
+	result = (int*)r.doOperation(ip, (uint16_t) puerto, Menssage::allowedOperations::send, (char*)&regis, TAM_MAX_DATA, len_response);
+
+	cout << *result << endl;
+
+	close(origin);
 
 	return 0;
 }

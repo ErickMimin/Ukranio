@@ -1,5 +1,5 @@
 run: server
-	./server 3000
+	./server registerServer
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp
