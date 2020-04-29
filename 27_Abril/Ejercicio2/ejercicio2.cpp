@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
 	//Entidades federativas
 	char const entidad[32][3] =  {"AS", "BC", "BS", "CC", "CS", "CH", "CL", "CM", "DF", "DG", "GT", "GR", "HG", "JC", "MC", "MN", "MS", "NT", "NL", "OC", "PL", "QT", "QR", "SP", "SL", "SR", "TC", "TL", "TS", "VZ", "YN", "ZS"};
 
-	if(argc != 2){
+	if(argc != 3){
 		printf("Forma de uso: programa numero_registros nombre_archivo\n");
 		exit(0);
 	}
