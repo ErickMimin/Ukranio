@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
         cout << " sizeof(args) = " << msg->length << endl;
 
         if(msg->operationId == Menssage::allowedOperations::send){
-            int destino = open(argv[1], O_WRONLY|O_APPEND, 0666);
+            int destino = open(argv[1], O_WRONLY|O_APPEND|O_CREAT, 0666);
             Registro *regis = (Registro*)msg->arguments;
             cout << regis->celular << endl;
             cout << regis->CURP << endl;
