@@ -1,8 +1,10 @@
 #include "Request.h"
+#include <iostream>
 #include <chrono>
 #include <random>
 #include <stdlib.h>
 #include <string.h>
+
 
 /* Generamos semilla */
 std::mt19937_64 seed(std::chrono::steady_clock::now().time_since_epoch().count());
@@ -12,12 +14,15 @@ int random(int min, int max){
 }
 
 char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::allowedOperations operation, char *arguments, size_t len, size_t &len_reply){
+
     Menssage *msg = new Menssage();
     msg->messageType = Menssage::kindMessages::request;
     msg->requestId = cont;
     msg->operationId = operation;
     memcpy(msg->arguments, arguments, len);
     msg->length = len;
+
+
 
     DatagramPacket pq((char*)msg, sizeof(Menssage), addr, iport);
     DatagramSocket sock;

@@ -6,6 +6,8 @@ typedef struct {
 	char celular[11];
 	char CURP[19];
 	char partido[4];
+	char sec[16];
+
 } Registro;
 
 #define TAM_MAX_DATA sizeof(Registro)

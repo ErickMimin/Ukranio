@@ -4,6 +4,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "Response.h"
+#include <sys/time.h>
+#include <string.h>
+
 
 using namespace std;
 
@@ -29,16 +32,22 @@ int main(int argc, char* argv[]){
         cout << " request ID = " << msg->requestId << endl;
 
         if(msg->operationId == Menssage::allowedOperations::send){
+            struct timeval tv;
+            gettimeofday(&tv, NULL);
+            char buffer[16];
+            snprintf(buffer,16,"%ldu%ld", tv.tv_sec,tv.tv_usec); // se concatena los segundos con microsegundos
+
             Registro *regis = (Registro*)msg->arguments;
+            memcpy(regis->sec, buffer, 16);
             cout << regis->celular << endl;
             cout << regis->CURP << endl;
             cout << regis->partido << endl;
+            cout << regis->sec << endl;
             int response = write(destino, regis, sizeof(Registro));
-            r.sendResponse((char*)&response, sizeof(int));
+            fsync(destino);
             close(destino);
-        }
-            
-        
+            r.sendResponse(buffer, strlen(buffer));
+        } 
     }
     cout << "Servivor apagandose..." << endl;
     return 0;
