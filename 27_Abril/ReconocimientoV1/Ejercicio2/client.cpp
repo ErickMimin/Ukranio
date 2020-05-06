@@ -14,7 +14,7 @@ using namespace std;
 char BUFFER[34];
 
 int main(int argc, char* argv[]) {
-	string ip = "192.168.8.115";
+	string ip = "127.0.0.1";
 	uint16_t puerto = 3000;
 	size_t len_response;
 	Request r;
