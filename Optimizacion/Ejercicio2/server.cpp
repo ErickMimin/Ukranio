@@ -25,13 +25,13 @@ int main(int argc, char* argv[]){
     map<string, int> nbd;
 
     //cout << "Servidor iniciado..." << endl;
-    int destino = open(argv[1], O_WRONLY|O_CREAT|O_TRUNC, 0666);
+    
     
 
     while(true){
         Menssage *msg = r.getRequest();
         //int* nums = (int*)msg->arguments;
-        destino = open(argv[1], O_APPEND|O_WRONLY, 0666);
+        int destino = open(argv[1], O_APPEND|O_WRONLY, 0666);
 
         /*cout << "Solicitud enviada desde " << r.address << ":" << r.port << endl;
         cout << " request ID = " << msg->requestId << endl;
@@ -60,8 +60,8 @@ int main(int argc, char* argv[]){
                 cout << regis->partido << endl;
                 cout << regis->sec << endl;*/
                 int response = write(destino, regis, sizeof(Registro));
-                fsync(destino);
-                close(destino);
+                //fsync(destino);
+                //close(destino);
                 r.sendResponse(buffer, strlen(buffer));
                 
             }
