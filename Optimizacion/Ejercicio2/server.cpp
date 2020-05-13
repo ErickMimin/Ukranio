@@ -25,13 +25,12 @@ int main(int argc, char* argv[]){
     map<string, int> nbd;
 
     //cout << "Servidor iniciado..." << endl;
-    
+    int destino = open(argv[1], O_APPEND|O_WRONLY|O_CREAT, 0666);
     
 
     while(true){
         Menssage *msg = r.getRequest();
         //int* nums = (int*)msg->arguments;
-        int destino = open(argv[1], O_APPEND|O_WRONLY, 0666);
 
         /*cout << "Solicitud enviada desde " << r.address << ":" << r.port << endl;
         cout << " request ID = " << msg->requestId << endl;
