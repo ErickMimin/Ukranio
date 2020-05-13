@@ -1,0 +1,17 @@
+run: client
+	./client 10000
+
+DatagramPacket.o: Libraries/DatagramPacket.cpp
+	g++ -c Libraries/DatagramPacket.cpp
+
+DatagramSocket.o: Libraries/DatagramSocket.cpp
+	g++ -c Libraries/DatagramSocket.cpp
+
+Request.o: Libraries/Request.cpp Libraries/Request.h
+	g++ -c Libraries/Request.cpp
+
+client: DatagramPacket.o DatagramSocket.o Request.o client.cpp
+	g++ DatagramPacket.o DatagramSocket.o Request.o client.cpp -o client -I./Libraries
+
+clean:
+	rm -rf *.o client server
