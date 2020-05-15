@@ -16,10 +16,10 @@ vector <string> IPs;
 vector <uint16_t> PORTs;
 Request REQUESTs[3];
 
-void Send(string ip, uint16_t port, string BUFFER, int rqN){
+void Send(string ip, uint16_t port, char* BUFFER, int rqN){
 	size_t len_response;
 	cout <<BUFFER << endl;
-	REQUESTs[rqN].doOperation(ip, (uint16_t) port, Menssage::allowedOperations::send, (char*)BUFFER.c_str(), TAM_MAX_DATA, len_response);
+	REQUESTs[rqN].doOperation(ip, (uint16_t) port, Menssage::allowedOperations::send, (char*)BUFFER, TAM_MAX_DATA, len_response);
 }
 
 int main(int argc, char* argv[]) {
@@ -41,15 +41,15 @@ int main(int argc, char* argv[]) {
 		cout << serverElec << endl;
 		if(serverElec <= 3){
 			//Send(IPs[0], PORTs[0], string(BUFFER), REQUESTs[0]);
-			thread t(Send, IPs[0], PORTs[0], string(BUFFER), 0);
+			thread t(Send, IPs[0], PORTs[0], BUFFER, 0);
 			t.detach();
 		}else if(serverElec <= 6){
 			//Send(IPs[1], PORTs[1], string(BUFFER), REQUESTs[1]);
-			thread t(Send, IPs[1], PORTs[1], string(BUFFER), 1);
+			thread t(Send, IPs[1], PORTs[1], BUFFER, 1);
 			t.detach();
 		}else{
 			//Send(IPs[2], PORTs[2], string(BUFFER), REQUESTs[2]);
-			thread t(Send, IPs[2], PORTs[2], string(BUFFER), 2);
+			thread t(Send, IPs[2], PORTs[2], BUFFER, 2);
 			t.detach();
 		}
 		n++;
