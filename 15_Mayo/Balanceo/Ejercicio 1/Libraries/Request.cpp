@@ -22,7 +22,7 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
     memcpy(msg->arguments, arguments, len);
     msg->length = len;
 
-
+    
 
     DatagramPacket pq((char*)msg, sizeof(Menssage), addr, iport);
     DatagramSocket sock;
@@ -32,7 +32,7 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
     DatagramPacket pqresp((char*)msg2, sizeof(Menssage));
     int i;
     for(i = 0; i < 7; ){
-        int n = sock.receiveTimeout(pqresp, 2, 500000);
+        int n = sock.receiveTimeout(pqresp, 3, 500000);
         if(n < 0)
             i++;
         else{

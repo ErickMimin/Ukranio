@@ -1,5 +1,5 @@
 run: client
-	./client 10000
+	./client 100 localhost 3000 localhost 3001 localhost 3002
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp
@@ -11,7 +11,7 @@ Request.o: Libraries/Request.cpp Libraries/Request.h
 	g++ -c Libraries/Request.cpp
 
 client: DatagramPacket.o DatagramSocket.o Request.o client.cpp
-	g++ DatagramPacket.o DatagramSocket.o Request.o client.cpp -o client -I./Libraries
+	g++ DatagramPacket.o DatagramSocket.o Request.o client.cpp -o client -I./Libraries -lpthread
 
 clean:
 	rm -rf *.o client server

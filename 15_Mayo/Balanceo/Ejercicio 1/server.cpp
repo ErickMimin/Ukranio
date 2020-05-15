@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
         exit(1);
     }
     struct TrieNode *root = getNode(); 
-    Response r(3000);
+    Response r(atoi(argv[2]));
     map<string, int> nbd;
 
     //cout << "Servidor iniciado..." << endl;
@@ -30,7 +30,6 @@ int main(int argc, char* argv[]){
     while(true){
         Menssage *msg = r.getRequest();
         //int* nums = (int*)msg->arguments;
-        destino = open(argv[1], O_APPEND|O_WRONLY, 0666);
 
         /*cout << "Solicitud enviada desde " << r.address << ":" << r.port << endl;
         cout << " request ID = " << msg->requestId << endl;
@@ -42,31 +41,23 @@ int main(int argc, char* argv[]){
             snprintf(buffer,16,"%ldu%ld", tv.tv_sec,tv.tv_usec); // se concatena los segundos con microsegundos
             
             Registro *regis = (Registro*)msg->arguments;
-            
-            
-            
+
             if (search(root, string(regis->celular))){
-                //std::cout << "Numero Repetido!\n";
+                std::cout << "Numero Repetido!\n";
                 snprintf(buffer,16,"%du%d", 0,0); // se concatena los segundos con microsegundo
                 r.sendResponse(buffer, strlen(buffer)); 
             }
             else {
                 insert(root, string(regis->celular));
-                //std::cout << "Numero NO Repetido.\n";
+                std::cout << "Numero NO Repetido.\n";
                 memcpy(regis->sec, buffer, 16);
                 /*cout << regis->celular << endl;
                 cout << regis->CURP << endl;
                 cout << regis->partido << endl;
                 cout << regis->sec << endl;*/
                 int response = write(destino, regis, sizeof(Registro));
-                fsync(destino);
-                close(destino);
                 r.sendResponse(buffer, strlen(buffer));
-                v.push_back (regis->celular);
             }
-            
-           
-
             
         } 
     }
