@@ -18,6 +18,7 @@ Request REQUESTs[3];
 
 void Send(string ip, uint16_t port, string BUFFER, int rqN){
 	size_t len_response;
+	cout <<BUFFER << endl;
 	REQUESTs[rqN].doOperation(ip, (uint16_t) port, Menssage::allowedOperations::send, (char*)BUFFER.c_str(), TAM_MAX_DATA, len_response);
 }
 
