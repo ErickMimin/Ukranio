@@ -1,5 +1,5 @@
 run: client
-	./client 100 localhost 3000 localhost 3001 localhost 3002
+	./client 10 127.0.0.1 3000 127.0.0.1 3001 127.0.0.1 3002
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp

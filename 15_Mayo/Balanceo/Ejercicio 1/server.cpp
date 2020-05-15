@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
     map<string, int> nbd;
 
     //cout << "Servidor iniciado..." << endl;
-    int destino = open(argv[1], O_WRONLY|O_CREAT|O_TRUNC, 0666);
+    int destino = open(argv[1], O_APPEND|O_WRONLY|O_CREAT, 0666);
     std::vector<std::string> v;
 
     while(true){
@@ -51,10 +51,10 @@ int main(int argc, char* argv[]){
                 insert(root, string(regis->celular));
                 std::cout << "Numero NO Repetido.\n";
                 memcpy(regis->sec, buffer, 16);
-                /*cout << regis->celular << endl;
+                cout << regis->celular << endl;
                 cout << regis->CURP << endl;
                 cout << regis->partido << endl;
-                cout << regis->sec << endl;*/
+                cout << regis->sec << endl;
                 int response = write(destino, regis, sizeof(Registro));
                 r.sendResponse(buffer, strlen(buffer));
             }
