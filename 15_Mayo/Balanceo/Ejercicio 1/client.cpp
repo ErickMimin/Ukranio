@@ -18,7 +18,7 @@ Request REQUESTs[3];
 
 void Send(string ip, uint16_t port, char* BUFFER, int rqN){
 	size_t len_response;
-	cout <<BUFFER << endl;
+	cout << "hola ->" << rqN << "\t"<< BUFFER << endl;
 	REQUESTs[rqN].doOperation(ip, (uint16_t) port, Menssage::allowedOperations::send, (char*)BUFFER, TAM_MAX_DATA, len_response);
 }
 
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 	}
 	int origin, bytesRead, n = 0, numreg = 0, serverElec;
 
-	if((origin = open("diezmil", O_RDONLY)) < 0){
+	if((origin = open("diezmil1", O_RDONLY)) < 0){
 		//cerr << "ERROR: Open register file" << endl;
 		exit(-1);
 	}
@@ -39,11 +39,11 @@ int main(int argc, char* argv[]) {
 	while ((bytesRead = read(origin, BUFFER, 34)) > 0 && n < numreg){
 		serverElec = ((int) BUFFER[9]) - '0';
 		cout << serverElec << endl;
-		if(serverElec <= 3){
+		if(serverElec <= 4){
 			//Send(IPs[0], PORTs[0], string(BUFFER), REQUESTs[0]);
 			thread t(Send, IPs[0], PORTs[0], BUFFER, 0);
 			t.detach();
-		}else if(serverElec <= 6){
+		}else if(serverElec <= 7){
 			//Send(IPs[1], PORTs[1], string(BUFFER), REQUESTs[1]);
 			thread t(Send, IPs[1], PORTs[1], BUFFER, 1);
 			t.detach();
