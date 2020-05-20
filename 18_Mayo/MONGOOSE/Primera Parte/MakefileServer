@@ -1,0 +1,17 @@
+run: server
+	./server registerServerXM 3000
+
+DatagramPacket.o: Libraries/DatagramPacket.cpp
+	g++ -c Libraries/DatagramPacket.cpp
+
+DatagramSocket.o: Libraries/DatagramSocket.cpp
+	g++ -c Libraries/DatagramSocket.cpp
+
+Response.o: Libraries/Response.cpp Libraries/Response.h
+	g++ -c Libraries/Response.cpp
+
+server: DatagramPacket.o DatagramSocket.o Response.o server.cpp
+	g++ DatagramPacket.o DatagramSocket.o Response.o server.cpp -o server -I./Libraries
+
+clean:
+	rm -rf *.o server client
