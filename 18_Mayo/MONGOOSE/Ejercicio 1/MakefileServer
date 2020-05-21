@@ -10,8 +10,8 @@ DatagramSocket.o: Libraries/DatagramSocket.cpp
 Response.o: Libraries/Response.cpp Libraries/Response.h
 	g++ -c Libraries/Response.cpp
 
-server: DatagramPacket.o DatagramSocket.o Response.o server.cpp
-	g++ DatagramPacket.o DatagramSocket.o Response.o server.cpp -o server -I./Libraries
+server: DatagramPacket.o DatagramSocket.o Response.o server.cpp Libraries/mongoose.c
+	g++ DatagramPacket.o DatagramSocket.o Response.o Libraries/mongoose.c server.cpp -o server -I./Libraries -lpthread
 
 clean:
 	rm -rf *.o server client

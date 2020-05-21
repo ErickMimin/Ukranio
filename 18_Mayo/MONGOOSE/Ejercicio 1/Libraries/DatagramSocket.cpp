@@ -42,11 +42,11 @@ int DatagramSocket::receiveTimeout(DatagramPacket & p, time_t seconds, suseconds
 		SO_RCVTIMEO --> Especifica el plazo de tiempo para recibir antes de informar de un error
 					   En Linux es un valor fijo y viene dado por una configuración específica del
 					   protocolo, no se puede leer ni modificar */
-	//setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
-	if(setBroadcast()<0){
+	setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
+	/*if(setBroadcast()<0){
 		cout<<"Error in setting Broadcast option";
 		unbind();
-	}
+	}*/
 
 	socklen_t len = sizeof(remoteAddress);
 	int n = recvfrom(s, p.getData(), p.getLength(), 0, (struct sockaddr*)&remoteAddress, &len);

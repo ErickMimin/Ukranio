@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>Mongoose REST</title>
+		<script src="jquery.min.js"></script>
+	</head>
+	<body style="font-family:arial;">
+		<div style="text-align:center">
+			<h1 >MANAGMENT BOARD</h1>
+			<img src="logoescom.png" height="200rem">
+			<form method=get id="management-block" class="block">
+				<button>Obtener estadisticas</button>
+			</form>
+			<div class="block" id="response"></div>
+		</div>
+	</body>
+</html>
+
+<script>
+	$("#response").hide();
+	$('#management-block').submit(function(){
+		$("#response").show();
+		$("#response").html("<img src='load.gif' width=50/>");
+		$.ajax({
+			type: "GET",
+			url: "/managment",
+			success: function(data){
+				$("#response").html(data);
+			}
+		});
+		return false;
+	});
+</script>
+
+<style>
+	h1{
+		color:#00539a;
+	}
+	body{
+		background-color:#dce1fa;
+	}
+	.block{
+		background-color: transparent;
+		padding:20px;
+		margin-left:25%;
+		margin-right:25%;
+		border-radius:10px;
+	}
+	button{
+		background-color:#5999f1;
+		border:0;
+		padding:10px;
+		border-radius:10px;
+		color:rgb(26, 27, 27);
+	}
+	#search{
+		height:40px;
+		font-size:20px;
+		width:300px;
+		border-radius:10px;
+	}
+</style>
