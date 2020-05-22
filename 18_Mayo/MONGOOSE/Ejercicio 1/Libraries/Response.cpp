@@ -6,7 +6,7 @@ Response::Response(int iport){
 	localSocket = new DatagramSocket(iport);
 }
 
-Menssage* Response::getRequest() {
+Menssage* Response::getRequest(){
 	Menssage *msg = new Menssage();
 	DatagramPacket pq((char*)msg, sizeof(Menssage));
 	localSocket->receive(pq);
@@ -24,6 +24,7 @@ Menssage* Response::getRequest() {
 }
 
 Menssage* Response::getRequestNoValidation() {
+	(*localSocket).setBroadcast();
 	Menssage *msg = new Menssage();
 	DatagramPacket pq((char*)msg, sizeof(Menssage));
 	localSocket->receive(pq);

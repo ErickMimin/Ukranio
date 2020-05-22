@@ -16,7 +16,7 @@ class Menssage {
 	public:
         /* Constantes */
 		enum kindMessages: int {request = 0, response};
-		enum allowedOperations: int {send = 0, time = 1,verification = 1};
+		enum allowedOperations: int {send = 0, time = 1,verification = 2, http = 3};
 
 		Menssage::kindMessages messageType;    
 		unsigned int requestId;

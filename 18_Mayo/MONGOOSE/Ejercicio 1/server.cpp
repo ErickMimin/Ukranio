@@ -1,6 +1,7 @@
 #define MG_ENABLE_HTTP_STREAMING_MULTIPART 1
 #include "mongoose.h"
 #include "Response.h"
+#include "Request.h"
 #include "arbol.h"
 #include <iostream>
 #include <string>
@@ -8,6 +9,7 @@
 #include <fcntl.h>
 #include <thread>
 #include <unistd.h>
+#include <unordered_map>
 #include <sys/time.h>
 #include <string.h>
 #include <algorithm>    // std::binary_search, std::sort
@@ -17,6 +19,23 @@ using namespace std;
 
 static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
+unordered_map<string, int> servers;
+
+void server_dbd(){
+    Response res = Response(9000);
+    string map;
+    while(true){
+        Menssage *msg = res.getRequestNoValidation();
+        if(msg->operationId == Menssage::allowedOperations::http){
+            map = res.address + ':' + string(msg->arguments);
+            if(servers.find(map) == servers.end())
+                servers[map] = 1;
+            else
+                servers[map] = servers[map] + 1;
+            res.sendResponse(NULL, 0);
+        }
+    }
+}
 
 void server_web(struct mg_mgr *mgr){
     while(true)
@@ -24,8 +43,15 @@ void server_web(struct mg_mgr *mgr){
 }
 
 static void handle_managment(struct mg_connection *nc, struct http_message *hm) {
-		string query = "Ya funciono";
+		string query;
 		//mg_get_http_var(&hm->body, "query", query,sizeof(query));
+        unordered_map<string, int>::iterator it;
+        for(it = servers.begin(); it != servers.end(); it++){
+            query.append((it->first).c_str());
+            query.push_back(';');
+            query.append((to_string(it->second)).c_str());
+            query.push_back(' ');
+        }
 
 		mg_send_head(nc, 200, query.length(), "Content-Type: text/plain");
 		mg_printf(nc, "%s", query.c_str());
@@ -59,6 +85,7 @@ int main(int argc, char* argv[]){
 
     /* Empezar el servidor UDP */
     Response r(atoi(argv[2]));
+    Request req;
     cout << "Servidor UDP iniciado..." << endl;
 
     /* Empezar el HTTP */
@@ -76,7 +103,9 @@ int main(int argc, char* argv[]){
 	s_http_server_opts.document_root = "www"; // Serve current directory
 	s_http_server_opts.enable_directory_listing = "yes";
     thread t(server_web, &mgr);
-    t.join();
+    t.detach();
+    thread tb(server_dbd);
+    tb.detach();
 
     while(true){
         Menssage *msg = r.getRequest();
@@ -96,10 +125,12 @@ int main(int argc, char* argv[]){
                 insert(root, string(regis->celular));
                 std::cout << "Numero NO Repetido.\n";
                 memcpy(regis->sec, buffer, 16);
-                /*cout << regis->celular << endl;
+                cout << regis->celular << endl;
                 cout << regis->CURP << endl;
                 cout << regis->partido << endl;
-                cout << regis->sec << endl; */
+                cout << regis->sec << endl;
+                size_t len_response;
+                req.doOperationBroadcast("192.168.0.255", 9000, Menssage::allowedOperations::http, argv[2], sizeof(argv[2]), len_response);
                 int response = write(destino, regis, sizeof(Registro));
                 r.sendResponse(buffer, strlen(buffer));
             }

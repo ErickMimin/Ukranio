@@ -7,28 +7,36 @@
 		<div style="text-align:center">
 			<h1 >MANAGMENT BOARD</h1>
 			<img src="logoescom.png" height="200rem">
-			<form method=get id="management-block" class="block">
+			<!--<form method=get id="management-block" class="block">
 				<button>Obtener estadisticas</button>
-			</form>
+			</form> -->
 			<div class="block" id="response"></div>
 		</div>
 	</body>
 </html>
 
 <script>
-	$("#response").hide();
-	$('#management-block').submit(function(){
-		$("#response").show();
-		$("#response").html("<img src='load.gif' width=50/>");
-		$.ajax({
-			type: "GET",
-			url: "/managment",
-			success: function(data){
-				$("#response").html(data);
-			}
-		});
-		return false;
+	$(document).ready(function() {
+	$("#response").html("<img src='load.gif' width=50/>");
+
+  // Start 1-second timer to call RESTful endpoint
+  setInterval(function(){
+	$.ajax({
+		type: "GET",
+		url: "/managment",
+		success: function(data){
+			array_data = data.split(' ');
+			array_data.slice(0, 1,  "");
+			array_data.pop();
+			array_final = array_data.map(function(x){
+				return x.split(';');
+			});
+			console.log(array_final);
+			$("#response").html(data);
+		}
 	});
+  }, 1000);
+});
 </script>
 
 <style>
