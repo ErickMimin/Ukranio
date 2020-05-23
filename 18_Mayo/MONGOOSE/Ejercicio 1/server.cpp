@@ -130,7 +130,7 @@ int main(int argc, char* argv[]){
                 cout << regis->partido << endl;
                 cout << regis->sec << endl;
                 size_t len_response;
-                req.doOperationBroadcast("192.168.0.255", 9000, Menssage::allowedOperations::http, argv[2], sizeof(argv[2]), len_response);
+                req.doOperationBroadcast(argv[4], 9000, Menssage::allowedOperations::http, argv[2], sizeof(argv[2]), len_response);
                 int response = write(destino, regis, sizeof(Registro));
                 r.sendResponse(buffer, strlen(buffer));
             }

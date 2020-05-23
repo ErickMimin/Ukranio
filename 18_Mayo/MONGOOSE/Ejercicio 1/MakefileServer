@@ -1,5 +1,5 @@
 run: server
-	./server registerServerXM 3000
+	./server registerServerXM 3000 192.168.100.255
 
 DatagramPacket.o: Libraries/DatagramPacket.cpp
 	g++ -c Libraries/DatagramPacket.cpp
