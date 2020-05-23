@@ -32,7 +32,7 @@ char* Request::doOperation(const std::string addr, uint16_t iport, Menssage::all
     DatagramPacket pqresp((char*)msg2, sizeof(Menssage));
     int i;
     for(i = 0; i < 7; ){
-        int n = sock.receiveTimeout(pqresp, 3, 500000);
+        int n = sock.receiveTimeout(pqresp, 10, 5000);
         if(n < 0)
             i++;
         else{

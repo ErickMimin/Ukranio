@@ -2,6 +2,8 @@
 	<head>
 		<title>Mongoose REST</title>
 		<script src="jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+		<script src="main.js"></script>
 	</head>
 	<body style="font-family:arial;">
 		<div style="text-align:center">
@@ -9,35 +11,12 @@
 			<img src="logoescom.png" height="200rem">
 			<!--<form method=get id="management-block" class="block">
 				<button>Obtener estadisticas</button>
-			</form> -->
-			<div class="block" id="response"></div>
+			</form> 
+			<div class="block" id="response"></div> -->
+			<div class="chart"><canvas id="myChart" ></canvas></div>
 		</div>
 	</body>
 </html>
-
-<script>
-	$(document).ready(function() {
-	$("#response").html("<img src='load.gif' width=50/>");
-
-  // Start 1-second timer to call RESTful endpoint
-  setInterval(function(){
-	$.ajax({
-		type: "GET",
-		url: "/managment",
-		success: function(data){
-			array_data = data.split(' ');
-			array_data.slice(0, 1,  "");
-			array_data.pop();
-			array_final = array_data.map(function(x){
-				return x.split(';');
-			});
-			console.log(array_final);
-			$("#response").html(data);
-		}
-	});
-  }, 1000);
-});
-</script>
 
 <style>
 	h1{
@@ -45,6 +24,7 @@
 	}
 	body{
 		background-color:#dce1fa;
+
 	}
 	.block{
 		background-color: transparent;
@@ -52,6 +32,12 @@
 		margin-left:25%;
 		margin-right:25%;
 		border-radius:10px;
+	}
+	.chart{
+		max-width: 50%;
+		margin-top:20px;
+		margin-left:25%;
+		margin-right:25%;
 	}
 	button{
 		background-color:#5999f1;

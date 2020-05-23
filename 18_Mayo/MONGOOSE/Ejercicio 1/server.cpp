@@ -17,7 +17,7 @@
 
 using namespace std;
 
-static const char *s_http_port = "8000";
+static const char *s_http_port;
 static struct mg_serve_http_opts s_http_server_opts;
 unordered_map<string, int> servers;
 
@@ -80,6 +80,8 @@ int main(int argc, char* argv[]){
     if(argc < 2){
         exit(1);
     }
+    s_http_port = (const char *)argv[4];
+    cout << s_http_port << endl;
     struct TrieNode *root = getNode(); 
     int destino = open(argv[1], O_TRUNC|O_WRONLY|O_CREAT, 0666);
 
@@ -118,19 +120,19 @@ int main(int argc, char* argv[]){
             Registro *regis = (Registro*)msg->arguments;
 
             if (search(root, string(regis->celular))){
-                std::cout << "Numero Repetido!\n";
+                std::cout << "--Numero Repetido--\n";
                 snprintf(buffer,16,"%du%d", 0,0); // se concatena los segundos con microsegundo
                 r.sendResponse(buffer, strlen(buffer)); 
             }else{
                 insert(root, string(regis->celular));
                 std::cout << "Numero NO Repetido.\n";
                 memcpy(regis->sec, buffer, 16);
-                cout << regis->celular << endl;
+                /*cout << regis->celular << endl;
                 cout << regis->CURP << endl;
                 cout << regis->partido << endl;
-                cout << regis->sec << endl;
+                cout << regis->sec << endl;*/
                 size_t len_response;
-                req.doOperationBroadcast("192.168.0.255", 9000, Menssage::allowedOperations::http, argv[2], sizeof(argv[2]), len_response);
+                req.doOperationBroadcast(argv[3], 9000, Menssage::allowedOperations::http, argv[2], sizeof(argv[2]), len_response);
                 int response = write(destino, regis, sizeof(Registro));
                 r.sendResponse(buffer, strlen(buffer));
             }
